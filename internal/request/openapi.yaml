@@ -1,0 +1,42 @@
+openapi: 3.0.0
+info:
+  title: JWT Authentication API
+  version: 1.0.0
+  description: API for checking login status using JWT in cookies.
+
+servers:
+  - url: "https://example.com/api"
+
+paths:
+  /session:
+    get:
+      summary: Check login status using JWT in cookies
+      description: This endpoint checks if a JWT in cookies is valid to determine the login status.
+      operationId: checkLogin
+      parameters:
+        - in: cookie
+          name: jwt
+          schema:
+            type: string
+          required: true
+          description: JWT token stored in cookie
+      responses:
+        "200":
+          description: Successfully authenticated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Successfully authenticated."
+        "401":
+          description: Authentication information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
